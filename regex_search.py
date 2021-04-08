@@ -6,9 +6,9 @@ import re
 import sys
 import argparse
 
-parser = argparse.ArgumentParser(description='Search .txt files for a string.')
-parser.add_argument('-f', '--file')
-parser.add_argument('-s', '--string')
+parser = argparse.ArgumentParser(description="Search .txt files for a string.")
+parser.add_argument("-f", "--file")
+parser.add_argument("-s", "--string")
 args = parser.parse_args()
 
 if not args.file:
@@ -44,7 +44,7 @@ def txtSearch(expression, directory):
         print("-" * 5 + "Matches and occurrences" + "-" * 5 + "\n")
         # Print matches on the left and occurrences on the right
         for k, v in registry.items():
-            print(f'{k} - {v} occurrences')
+            print(f"{k} - {v} occurrences")
     else:
         print("Search completed. No results found. System will now exit.")
         sys.exit()
@@ -54,22 +54,22 @@ def continueOne():
     filename = input(
         "Enter the file name for which you wish to find specific matches: "
     ).strip()
-    filename += '.txt'
+    filename += ".txt"
     while True:
         if filename not in registry:
-            print('This file does not have any matches')
-            next = input('Please try again, or enter X to exit: ')
-            if next.lower().strip() == 'x':
+            print("This file does not have any matches")
+            next = input("Please try again, or enter X to exit: ")
+            if next.lower().strip() == "x":
                 sys.exit()
-            filename = next + '.txt'
+            filename = next + ".txt"
             continue
 
         # if we reached here then a valid file was inputted
         printMatches(filename)
         break
 
-    next = input('Select another file? Enter X to exit.')
-    if next.lower().strip() == 'x':
+    next = input("Select another file? Enter X to exit.")
+    if next.lower().strip() == "x":
         sys.exit()
     else:
         continueOne()
@@ -90,22 +90,24 @@ def printMatches(filename: str):
         hits = set(regex.findall(line))
         if hits:
             for hit in hits:
-                colorfulLine = line.replace(hit, f'\x1b[1;4;31m{hit}\x1b[0m')
+                colorfulLine = line.replace(hit, f"\x1b[1;4;31m{hit}\x1b[0m")
                 specificMatch[f"Line {lineNo}"] = colorfulLine
     print("Search completed. These are the results: \n")
     print("-" * 5 + "Matches in " + filename + "-" * 5 + "\n")
     for k, v in specificMatch.items():
-        print(f'{k}: {v}')
-    print('\n')
+        print(f"{k}: {v}")
+    print("\n")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     txtSearch(myExpression, myDirectory)
-    continueSearch = input("Enter 1 to continue the search for 1 file, or any other button to continue the search for all files, or enter X to exit: ")
+    continueSearch = input(
+        "Enter 1 to continue the search for 1 file, or any other button to continue the search for all files, or enter X to exit: "
+    )
     continueSearch = continueSearch.lower().strip()
-    if continueSearch == '1':
+    if continueSearch == "1":
         continueOne()
-    elif continueSearch == 'x':
+    elif continueSearch == "x":
         print("Program terminated. System will now exit.")
         sys.exit()
     else:
