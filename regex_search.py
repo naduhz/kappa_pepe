@@ -85,10 +85,13 @@ def printMatches(filename: str):
     matchFile = open(os.path.join(myDirectory, filename), encoding="utf-8")
     matchContent = matchFile.readlines()
     # Loop through the lines
-    for line in matchContent:
+    for lineNo, line in enumerate(matchContent):
         # Do a regex search. If a match is found, create a key-value pair in specificMatch.
-        if regex.search(line):
-            specificMatch["Line " + str(matchContent.index(line))] = line
+        hits = set(regex.findall(line))
+        if hits:
+            for hit in hits:
+                colorfulLine = line.replace(hit, f'\x1b[1;4;31m{hit}\x1b[0m')
+                specificMatch[f"Line {lineNo}"] = colorfulLine
     print("Search completed. These are the results: \n")
     print("-" * 5 + "Matches in " + filename + "-" * 5 + "\n")
     for k, v in specificMatch.items():
