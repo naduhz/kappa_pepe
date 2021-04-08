@@ -1,7 +1,9 @@
-# Regex Search.py - Opens all .txt files in a folder and searches for any line that matches
+# regex_search.py - Opens all .txt files in a folder and searches for any line that matches
 # a user-supplied regular expression. Results are printed to the screen.
 
-import os, re, sys
+import os
+import re
+import sys
 
 myDirectory = input("Enter the absolute path of the folder you wish to search in: ")
 myExpression = input("Enter an expression you wish to search for: ")
